@@ -195,7 +195,7 @@ export function fibonacciSearch(array: Array<number>, value: number): number {
 
 // ========================== Sorting Algorithms ==========================
 /**
- * @name: Bubble Search
+ * @name: Bubble Sort
  * @param  {Array} array The array to search.
  * @param  {number} value The value to search for.
  * @return {number} The index of the value in the array, or -1 if the value is not found.
@@ -267,3 +267,62 @@ export function selectionSort(arr: Array<number>): Array<number> {
 
   return arr;
 };
+
+
+
+/**
+ * @name: Merge Sort
+ * @param  {Array} array The array to sort.
+ * @return {Array} The sorted array.
+ */
+/*
+| Case | Time Complexity |
+|---|---|
+| Best Case | Ω(n log n) |
+| Worst Case | O(n log n) |
+| Average Case | Θ(n log n) |
+*/
+/**
+| Case | Space Complexity |
+|---|---|
+| Worst Case | O(n) | 
+*/
+export function mergeSort(arr: number[]): number[] {
+  // Base case: arrays with 0 or 1 element are already sorted
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  // Splitting the array into two halves
+  const middle = Math.floor(arr.length / 2);
+  const leftHalf = arr.slice(0, middle);
+  const rightHalf = arr.slice(middle);
+
+  // Recursively sort each half
+  const sortedLeft = mergeSort(leftHalf);
+  const sortedRight = mergeSort(rightHalf);
+
+  // Merge the sorted halves
+  return merge(sortedLeft, sortedRight);
+}
+
+// Merge two sorted arrays into one sorted array
+function merge(left: number[], right: number[]): number[] {
+  let result: number[] = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+
+  // Compare elements from left and right arrays and merge them into result
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      result.push(left[leftIndex]);
+      leftIndex++;
+    } else {
+      result.push(right[rightIndex]);
+      rightIndex++;
+    }
+  }
+
+  // Concatenate remaining elements of left and right arrays
+  return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+}
